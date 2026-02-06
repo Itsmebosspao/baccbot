@@ -2,7 +2,7 @@ let bankerWins = 0;
 let playerWins = 0;
 
 let selectedSide = null;   // "P", "B", "T"
-let numbers = [];          // two inputs
+let numbers = [];          // 2 or 3 card values
 let history = [];          // last 10 hands
 
 function selectSide(side) {
@@ -12,7 +12,7 @@ function selectSide(side) {
   showMessage(
     (side === "P" ? "PLAYER" :
      side === "B" ? "BANKER" : "TIE") +
-    " selected — enter 2 numbers"
+    " selected — enter cards"
   );
 }
 
@@ -22,45 +22,52 @@ function addNumber(n) {
     return;
   }
 
+  if (numbers.length >= 3) return;
+
   numbers.push(n);
+  showMessage("INPUT: " + numbers.join(" + "));
 
-  if (numbers.length === 2) {
-    const rawSum = numbers[0] + numbers[1];
-    const finalScore = rawSum % 10;
-
-    let entry = "";
-
-    if (selectedSide === "P") {
-      playerWins++;
-      entry = `P(${finalScore})`;
-      showMessage(`PLAYER WIN\n${numbers[0]} + ${numbers[1]} = ${finalScore}`);
-    }
-
-    if (selectedSide === "B") {
-      bankerWins++;
-      entry = `B(${finalScore})`;
-      showMessage(`BANKER WIN\n${numbers[0]} + ${numbers[1]} = ${finalScore}`);
-    }
-
-    if (selectedSide === "T") {
-      entry = `T(${finalScore})`;
-      showMessage(`TIE\n${numbers[0]} + ${numbers[1]} = ${finalScore}`);
-    }
-
-    addHistory(entry);
-    updateStats();
-
-    // reset for next hand
-    numbers = [];
-    selectedSide = null;
+  // auto-finish on 3 cards
+  if (numbers.length === 3) {
+    finalizeHand();
   }
 }
 
-function addHistory(item) {
-  history.unshift(item);      // add to front
-  if (history.length > 10) {
-    history.pop();            // keep last 10 only
+function finalizeHand() {
+  if (numbers.length < 2) return;
+
+  const rawSum = numbers.reduce((a, b) => a + b, 0);
+  const finalScore = rawSum % 10;
+
+  let entry = "";
+
+  if (selectedSide === "P") {
+    playerWins++;
+    entry = `P(${finalScore})`;
+    showMessage(`PLAYER WIN\n${numbers.join(" + ")} = ${finalScore}`);
   }
+
+  if (selectedSide === "B") {
+    bankerWins++;
+    entry = `B(${finalScore})`;
+    showMessage(`BANKER WIN\n${numbers.join(" + ")} = ${finalScore}`);
+  }
+
+  if (selectedSide === "T") {
+    entry = `T(${finalScore})`;
+    showMessage(`TIE\n${numbers.join(" + ")} = ${finalScore}`);
+  }
+
+  addHistory(entry);
+  updateStats();
+
+  numbers = [];
+  selectedSide = null;
+}
+
+function addHistory(item) {
+  history.unshift(item);
+  if (history.length > 10) history.pop();
   document.getElementById("history").innerText = history.join("  ");
 }
 
