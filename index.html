@@ -1,4 +1,33 @@
-<h3>POINTS</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BACC.BOT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>BACC.BOT</h1>
+
+<div id="display">READY</div>
+
+<div id="stats">B: 0 | P: 0</div>
+<div id="percent">B%: 0 | P%: 0</div>
+
+<div id="ai">
+  BET: -<br>
+  SIGNAL: STOP
+</div>
+
+<div class="buttons">
+  <button class="player" onclick="selectSide('P')">PLAYER</button>
+  <button class="banker" onclick="selectSide('B')">BANKER</button>
+  <button class="tie" onclick="selectSide('T')">TIE</button>
+</div>
+
+<h3>CARDS (0–9)</h3>
 <div class="keypad">
   <button onclick="addNumber(0)">0</button>
   <button onclick="addNumber(1)">1</button>
@@ -11,3 +40,18 @@
   <button onclick="addNumber(8)">8</button>
   <button onclick="addNumber(9)">9</button>
 </div>
+
+<h3>HISTORY (LAST 10)</h3>
+<div id="history">—</div>
+
+<button class="reset" onclick="reset()">RESET SESSION</button>
+
+<script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+</html>
