@@ -1,11 +1,6 @@
-<div class="buttons">
-  <button onclick="selectSide('P')">PLAYER</button>
-  <button onclick="selectSide('B')">BANKER</button>
-  <button onclick="selectSide('T')">TIE</button>
-</div>
-
 <h3>POINTS</h3>
 <div class="keypad">
+  <button onclick="addNumber(0)">0</button>
   <button onclick="addNumber(1)">1</button>
   <button onclick="addNumber(2)">2</button>
   <button onclick="addNumber(3)">3</button>
@@ -16,12 +11,3 @@
   <button onclick="addNumber(8)">8</button>
   <button onclick="addNumber(9)">9</button>
 </div>
-
-<div id="display">READY</div>
-
-<div id="stats">B: 0 | P: 0</div>
-<div id="percent">B%: 0 | P%: 0</div>
-<div id="ai">BET: -<br>SIGNAL: STOP</div>
-
-<h3>HISTORY (LAST 10)</h3>
-<div id="history">—</div>
