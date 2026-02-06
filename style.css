@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 15px;
+  background: #ffffff;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.panel {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#decision {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 8px;
+}
+
+.go {
+  background: #c8f7c5;
+  color: #0a7a18;
+}
+
+.stop {
+  background: #ffd6d6;
+  color: #9b0000;
+}
+
+.buttons button {
+  font-size: 18px;
+  padding: 15px;
+  margin: 5px;
+  width: 110px;
+}
+
+.banker { background: #ffcccc; }
+.player { background: #cce5ff; }
+.tie { background: #e0e0e0; }
+
+.keypad button {
+  font-size: 18px;
+  padding: 12px;
+  margin: 4px;
+  width: 60px;
+}
+
+#profit {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.reset {
+  background: black;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 10px;
+}

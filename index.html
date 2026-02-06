@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BACC.BOT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>BACC.BOT</h1>
+
+<div class="panel">
+  <div id="stats">B: 0 | P: 0</div>
+  <div id="percent">B%: 0 | P%: 0</div>
+</div>
+
+<div id="decision" class="stop">
+  BET: -<br>
+  SIGNAL: STOP
+</div>
+
+<div class="buttons">
+  <button onclick="add('B')" class="banker">BANKER</button>
+  <button onclick="add('P')" class="player">PLAYER</button>
+  <button onclick="add('T')" class="tie">TIE</button>
+</div>
+
+<h3>BET SIZE</h3>
+<div class="keypad">
+  <button onclick="bet(1)">1</button>
+  <button onclick="bet(2)">2</button>
+  <button onclick="bet(3)">3</button>
+  <button onclick="bet(4)">4</button>
+  <button onclick="bet(5)">5</button>
+  <button onclick="bet(6)">6</button>
+  <button onclick="bet(7)">7</button>
+  <button onclick="bet(8)">8</button>
+  <button onclick="bet(9)">9</button>
+</div>
+
+<div id="profit">PROFIT: 0</div>
+
+<button class="reset" onclick="reset()">RESET SESSION</button>
+
+<script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+</html>

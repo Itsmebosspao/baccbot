@@ -1,0 +1,8 @@
+{
+  "name": "BACC.BOT",
+  "short_name": "BACC.BOT",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}
