@@ -1,60 +1,101 @@
-let B = 0;
-let P = 0;
-let profit = 0;
-let currentBet = 0;
+let bankerWins = 0;
+let playerWins = 0;
 
-function add(r) {
-  if (r === "B") {
-    B++;
-    if (currentBet > 0 && lastBet === "BANKER") profit += currentBet;
-    else if (currentBet > 0) profit -= currentBet;
-  }
+let selectedSide = null;   // "P", "B", "T"
+let numbers = [];          // two inputs
+let history = [];          // last 10 hands
 
-  if (r === "P") {
-    P++;
-    if (currentBet > 0 && lastBet === "PLAYER") profit += currentBet;
-    else if (currentBet > 0) profit -= currentBet;
-  }
+function selectSide(side) {
+  selectedSide = side;
+  numbers = [];
 
-  update();
+  showMessage(
+    (side === "P" ? "PLAYER" :
+     side === "B" ? "BANKER" : "TIE") +
+    " selected — enter 2 numbers"
+  );
 }
 
-function bet(n) {
-  currentBet = n;
+function addNumber(n) {
+  if (!selectedSide) {
+    alert("Select PLAYER, BANKER, or TIE first");
+    return;
+  }
+
+  numbers.push(n);
+
+  if (numbers.length === 2) {
+    const rawSum = numbers[0] + numbers[1];
+    const finalScore = rawSum % 10;
+
+    let entry = "";
+
+    if (selectedSide === "P") {
+      playerWins++;
+      entry = `P(${finalScore})`;
+      showMessage(`PLAYER WIN\n${numbers[0]} + ${numbers[1]} = ${finalScore}`);
+    }
+
+    if (selectedSide === "B") {
+      bankerWins++;
+      entry = `B(${finalScore})`;
+      showMessage(`BANKER WIN\n${numbers[0]} + ${numbers[1]} = ${finalScore}`);
+    }
+
+    if (selectedSide === "T") {
+      entry = `T(${finalScore})`;
+      showMessage(`TIE\n${numbers[0]} + ${numbers[1]} = ${finalScore}`);
+    }
+
+    addHistory(entry);
+    updateStats();
+
+    // reset for next hand
+    numbers = [];
+    selectedSide = null;
+  }
 }
 
-let lastBet = "-";
+function addHistory(item) {
+  history.unshift(item);      // add to front
+  if (history.length > 10) {
+    history.pop();            // keep last 10 only
+  }
+  document.getElementById("history").innerText = history.join("  ");
+}
 
-function update() {
-  let total = B + P;
-  let bPct = total ? B / total : 0;
-  let pPct = total ? P / total : 0;
+function updateStats() {
+  const total = bankerWins + playerWins;
+  const bPct = total ? bankerWins / total : 0;
+  const pPct = total ? playerWins / total : 0;
 
-  document.getElementById("stats").innerText = `B: ${B} | P: ${P}`;
+  document.getElementById("stats").innerText =
+    `B: ${bankerWins} | P: ${playerWins}`;
+
   document.getElementById("percent").innerText =
-    `B%: ${(bPct*100).toFixed(1)} | P%: ${(pPct*100).toFixed(1)}`;
+    `B%: ${(bPct * 100).toFixed(1)} | P%: ${(pPct * 100).toFixed(1)}`;
 
-  let betSide = bPct >= pPct ? "BANKER" : "PLAYER";
-  lastBet = betSide;
+  const bet = bPct >= pPct ? "BANKER" : "PLAYER";
+  const signal = Math.abs(bPct - pPct) >= 0.08 ? "GO 🟢" : "STOP 🔴";
 
-  let decision = document.getElementById("decision");
+  document.getElementById("ai").innerHTML =
+    `BET: ${bet}<br>SIGNAL: ${signal}`;
+}
 
-  if (Math.abs(bPct - pPct) >= 0.08) {
-    decision.className = "go";
-    decision.innerHTML = `BET: ${betSide}<br>SIGNAL: GO`;
-  } else {
-    decision.className = "stop";
-    decision.innerHTML = `BET: ${betSide}<br>SIGNAL: STOP`;
-  }
-
-  document.getElementById("profit").innerText = `PROFIT: ${profit}`;
+function showMessage(text) {
+  document.getElementById("display").innerText = text;
 }
 
 function reset() {
-  B = 0;
-  P = 0;
-  profit = 0;
-  currentBet = 0;
-  lastBet = "-";
-  update();
+  bankerWins = 0;
+  playerWins = 0;
+  selectedSide = null;
+  numbers = [];
+  history = [];
+
+  document.getElementById("display").innerText = "READY";
+  document.getElementById("stats").innerText = "B: 0 | P: 0";
+  document.getElementById("percent").innerText = "B%: 0 | P%: 0";
+  document.getElementById("ai").innerHTML = "BET: -<br>SIGNAL: STOP";
+  document.getElementById("history").innerText = "—";
 }
