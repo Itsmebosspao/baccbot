@@ -10,50 +10,48 @@ h1 {
   margin-bottom: 10px;
 }
 
-.panel {
+#display {
   font-size: 18px;
-  margin-bottom: 10px;
-}
-
-#decision {
-  font-size: 22px;
   font-weight: bold;
-  padding: 15px;
-  margin: 15px 0;
+  margin: 10px 0;
+}
+
+#stats, #percent {
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+#ai {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 12px;
+  margin: 12px 0;
   border-radius: 8px;
-}
-
-.go {
-  background: #c8f7c5;
-  color: #0a7a18;
-}
-
-.stop {
-  background: #ffd6d6;
-  color: #9b0000;
+  background: #f2f2f2;
 }
 
 .buttons button {
-  font-size: 18px;
-  padding: 15px;
-  margin: 5px;
-  width: 110px;
+  font-size: 16px;
+  padding: 12px;
+  margin: 4px;
+  width: 100px;
 }
 
-.banker { background: #ffcccc; }
 .player { background: #cce5ff; }
+.banker { background: #ffcccc; }
 .tie { background: #e0e0e0; }
 
 .keypad button {
   font-size: 18px;
-  padding: 12px;
+  padding: 10px;
   margin: 4px;
   width: 60px;
 }
 
-#profit {
-  font-size: 20px;
-  margin: 10px 0;
+#history {
+  font-size: 14px;
+  margin: 8px 0;
+  min-height: 20px;
 }
 
 .reset {
